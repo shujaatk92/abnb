@@ -13,6 +13,8 @@ import {
     SubmitHandler, 
     useForm 
 } from "react-hook-form"
+import toast from "react-hot-toast"
+import Button from "../Button"
 
 
 
@@ -43,7 +45,8 @@ const RegisterModal = () => {
             registerModal.onClose();
         })
          .catch((error) => {
-            console.log(error);
+            // console.log(error);
+            toast.error('Something went wrong')
             
          })
          .finally( () => {
@@ -66,6 +69,48 @@ const RegisterModal = () => {
             errors={errors}
             required
             />
+            <Input 
+            id="name"
+            label="Name"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+            />
+            <Input 
+            id="password"
+            label="Password"
+            type="password"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+            />
+        </div>
+     )
+
+     const footerContent = (
+        <div className="flex flex-col gap-4 mt-3">
+            <hr />
+            <Button 
+            onClick={() => {}}
+            outline
+            label="Continue with Google"
+            icon={FcGoogle}
+            />
+             <Button 
+            onClick={() => {}}
+            outline
+            label="Continue with Github"
+            icon={AiFillGithub}
+            />
+            <div className="text-neutral-500 font-light text-center">
+                <div className="justify-center flex felx-row gap-2 items-center">
+                    <div>Already have an account?</div>
+                    <div onClick={registerModal.onClose}
+                    className="text-neutral-800 hover:underline cursor-pointer">Log in</div>
+                </div>
+            </div>
         </div>
      )
 
@@ -78,6 +123,7 @@ const RegisterModal = () => {
         onClose={registerModal.onClose}
         onSubmit={handleSubmit(onSubmit)}
         body={bodyContent}
+        footer={footerContent}
         />
     )
 }
