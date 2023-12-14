@@ -1,6 +1,5 @@
 'use client';
 
-
 import { AiFillGithub } from "react-icons/ai";
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
@@ -56,9 +55,15 @@ const LoginModal = () => {
     })
   }
 
+  // const onToggle = useCallback(() => {
+  //   registerModal.onClose();
+  //   loginModal.onOpen();
+  // }, [registerModal, loginModal])
+
   const onToggle = useCallback(() => {
-    registerModal.onClose();
-    loginModal.onOpen();
+    loginModal.onClose();
+    registerModal.onOpen();
+    
   }, [registerModal, loginModal])
 
   const bodyContent = (
@@ -110,7 +115,7 @@ const LoginModal = () => {
           font-light
         "
       >
-        <p>Already have an account?
+        <p>First time using Airbnb?
           <span 
             onClick={onToggle} 
             className="
@@ -118,7 +123,7 @@ const LoginModal = () => {
               cursor-pointer 
               hover:underline
             "
-            > Sign Up</span>
+            > Create an account</span>
         </p>
       </div>
     </div>
