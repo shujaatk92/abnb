@@ -1,16 +1,17 @@
 "use client"
 
 import useCountries from "@/app/hooks/useCountries";
-import { SafeUser } from "@/app/types";
-import { Listing, Reservation } from "@prisma/client"
+import { SafeListings, SafeUser } from "@/app/types";
+import { Reservation } from "@prisma/client"
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { format } from "date-fns"
 import Image from "next/image";
 import HeartButon from "../HeartButon";
+import Button from "../Button";
 
 interface ListingCardProps {
-    data: Listing;
+    data: SafeListings;
     reservation?: Reservation;
     onAction?: (id: string) => void;
     disabled?: boolean;
@@ -69,7 +70,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
         onClick={() => router.push(`/listings/${data.id}`)}
         className="col-span-1 cursor-pointer group
         ">
-            <div className="flex flex-col gap-2 w-full">
+            <div className="flex flex-col w-full">
                 <div className="aspect-square w-full relative overflow-hidden rounded-xl">
                     <Image 
                     width={100}
@@ -85,7 +86,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
                     />
                     </div>
                 </div>
-                <div className="font-semibold font-lg">
+                <div className="font-semibold font-lg mt-3">
                     {location?.region}, {location?.label}
                 </div>
                 <div className="font-light text-neutral-500">
@@ -95,7 +96,18 @@ const ListingCard: React.FC<ListingCardProps> = ({
                     <div className="font-semibold">
                         $ {price}
                     </div>
+                    {!reservation && (
+                        <div className="font-light">night</div>
+                    )}
                 </div>
+                { onAction && actionLabel && (
+                    <Button 
+                    disabled={disabled}
+                    small
+                    label={actionLabel}
+                    onClick={handleCancle}
+                     />
+                )}
             </div>
         </div>
     )
