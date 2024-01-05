@@ -26,6 +26,7 @@ export default async function getFavoritesListings(){
         return safeFavorites;
     }
     catch (error: any){
-        throw new Error(error);
+        // throw new Error(error);
+    console.log(error);
     }
 }
